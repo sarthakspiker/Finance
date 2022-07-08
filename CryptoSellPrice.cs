@@ -51,7 +51,7 @@ public class Program
 		double recoveryPrice = (actualRecoveryPrice/100)*optimalPercentage ;
 		double taxOnrecoveryPrice = ((recoveryPrice-avgCost)/100)*35;
 		
-		Console.WriteLine("\n------------------------- Loss Making Sale ---------------------------");
+		Console.WriteLine("\n------------------------------- Sold ---------------------------------");
 		Console.WriteLine("Vol Sold: " + totalSellVol  + "	Sale Price each: " + avgSell );
 		Console.WriteLine("Cost Price total: " + expsaleAmount  + "	Sale Price total: " + saleAmount + "	Loss: " + loss + "\n\nAmount to be recovered: " + totalCP);
 		Console.WriteLine("\n------------------------- Actuals (Total CP) -------------------------");
