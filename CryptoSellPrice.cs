@@ -4,27 +4,31 @@ public class Program
 {	
 	public static void Main()
 	{
-		double[] costPrice = {100,50};
-		double[] volumes = {100, 30};
 		double totalCP = 0;
 		double totalVol = 0;
 		double avgCost = 0;
 		
-		for(int i = 0; i < 2; i++ ){
+		// Enter total volume and avg price as first values, or enter all buy orders
+		double[] costPrice = {100,50};
+		double[] volumes = {100, 30};
+		
+		// Enter the loss making sale details
+		double saleVol = 10;
+		double salePrice = 40;
+				
+		// Optimise this value to eqalize Recovery Price and Expected sell price
+		double optimalPercentage = 102.5;
+		
+		for(int i = 0; i < costPrice.Length; i++ ){
 			totalCP += costPrice[i] * volumes[i];
 			totalVol += volumes[i];
 		}
 		avgCost = totalCP/totalVol;
+		
+		Console.WriteLine("\n------------------------------ Invested ------------------------------");
 		Console.WriteLine("Total Cost Price: " + totalCP);
 		Console.WriteLine("Total Volume: " + totalVol);
 		Console.WriteLine("Avg Cost Price: " + avgCost);
-		
-		// selling few items
-		double saleVol = 10;
-		double salePrice = 40;
-		
-		// Optimise this value to eqalize Recovery Price and Expected sell price
-		double optimalPercentage = 102.5;
 		
 		double saleAmount = salePrice * saleVol;
 		double expsaleAmount = avgCost * saleVol;
@@ -34,23 +38,22 @@ public class Program
 		double loss = expsaleAmount - saleAmount;
 		
 		double actualRecoveryPrice = totalCP/totalVol;
-		double profit = actualRecoveryPrice - avgCost;
 		double taxOnProfit =  ((actualRecoveryPrice - avgCost)/100)*35;
 		
 		double recoveryPrice = (actualRecoveryPrice/100)*optimalPercentage ;
 		double taxOnrecoveryPrice = ((recoveryPrice-avgCost)/100)*35;
 		
-		Console.WriteLine("\n----------------------- Sale ------------------------");
-		Console.WriteLine("\nVol Sold: " + saleVol  + "	Sale Price each: " + salePrice );
+		Console.WriteLine("\n------------------------------- Sale ---------------------------------");
+		Console.WriteLine("Vol Sold: " + saleVol  + "	Sale Price each: " + salePrice );
 		Console.WriteLine("Cost Price total: " + expsaleAmount  + "	Sale Price total: " + saleAmount + "	Loss: " + loss + "\n\nAmount to be recovered: " + totalCP);
-		Console.WriteLine("\n---------------------- Actuals ----------------------");
+		Console.WriteLine("\n------------------------- Actuals (Total CP) -------------------------");
 		Console.WriteLine("Recovery Price: " + actualRecoveryPrice);
-		Console.WriteLine("Profit: " + profit + "	Tax:" + taxOnProfit);
-		Console.WriteLine("\n--------------------- Expected ----------------------");
-		Console.WriteLine("\nSelling Price to save investment: " + recoveryPrice);
-		//Console.WriteLine("\nPercent Profit to sell at: " + ((recoveryPrice-avgCost)/avgCost)*100);
+		Console.WriteLine("Tax:" + taxOnProfit + "	Price after tax: " + (actualRecoveryPrice -taxOnProfit));
+		Console.WriteLine("\nNET PROFIT (Profit per unit * Volume): " + (actualRecoveryPrice -taxOnProfit - actualRecoveryPrice)*totalVol);
+		Console.WriteLine("\n--------------------- Expected (Total CP + Tax) ----------------------");
+		Console.WriteLine("\nMinimum Selling Price to save investment: " + recoveryPrice);
 		
-		Console.WriteLine("Tax: " + taxOnrecoveryPrice +"	Recovery Price after tax: " + (recoveryPrice -taxOnrecoveryPrice));
-		Console.WriteLine("\n				NET PROFIT: " + (recoveryPrice -taxOnrecoveryPrice-actualRecoveryPrice)*totalVol);
+		Console.WriteLine("Tax: " + taxOnrecoveryPrice +"	Price after tax: " + (recoveryPrice -taxOnrecoveryPrice));
+		Console.WriteLine("\nNET PROFIT (Profit per unit * Volume): " + (recoveryPrice -taxOnrecoveryPrice-actualRecoveryPrice)*totalVol);
 	}
 }
